@@ -1,0 +1,92 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Aritmetica de R
+
+```{r}
+3+5 *7
+
+1+2
+
+8-5
+
+(4/5)*9
+
+2^2 #potencia
+
+
+28%%6
+
+#asignacion de variables
+var1 <- 10
+var1 * 10
+var2 <- var1 *10  + 1
+print(var2)
+#x <- 10
+print(x)
+x = 11
+print(x)
+
+u <- 10
+c <- 11 
+total = u + c 
+print(total)
+
+buenos <- "jeje no sale"
+kk <- TRUE
+KIKI <- FALSE 
+print(kk)
+
+# tipo de variable
+class(kk)
+class(x)
+
+# vectores
+vector1 <- c(1,2,3)
+vector3 <- c(3,2,1)
+vector2 <- c("a","b","c")
+vector4 <- c("a","b","c")
+vector5 <- c(TRUE, FALSE, TRUE)
+
+vard <- vector1 + vector3
+print(vard)
+print(vector1 + vector3)
+print(vector5)
+
+# nombrar un vector
+vector2 <- c("a","b")
+vector1 <- c(1,2)
+names(vector2) <- c("c1", "c2")
+names(vector1) <- c("c1", "c2")
+print(vector1)
+
+
+vector2
+vector1
+
+# seleccion y comparacion 
+vector1 <- c(1,2,3)
+vector3 <- c(3,2,1)
+print(vector1 > vector3)
+print(vector1 == vector3)
+print(vector1 != vector3)
+print(vector1 >= vector3)
+
+age <- 17
+
+age >= 18
+age <= 19
+
+#suma todo el vector
+vector2 <- sum(vector1, vector3) 
+vector2
+
+vector1[1:2]    # llamar un rango
+vector1[c(2,3)] # traer pequeñas porciones del vector
+
+#Matrices
+
+```
+
