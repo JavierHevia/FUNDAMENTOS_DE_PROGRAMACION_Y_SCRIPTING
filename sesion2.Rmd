@@ -21,3 +21,85 @@ planetas <- data.frame(name, type, diameter, rotation, rings)
 planetas
 ```
 
+selection of date frame
+```{r}
+planetas[1,3]
+planetas[4,] #toda la fila que uno quiere completa
+planetas[1:5,] #Filas que yo quiero con todas las filas
+planetas[1:5,"diameter"] # rango de filas con una columnas en especial
+planetas[1:5,1:2] #rango de filas con las dos primeras columnas
+planetas[1:5,c("type", "diameter")] # rango de filas con dos columnas en particular
+planetas[1:5,c(3,5)] #rango de filas por dos columnas en particular en número
+
+rigs_vector <- planetas$rings # devuelve las columnas con el $
+rigs_vector
+
+planetas[rigs_vector,] # devuelve unicamente aquellos valores que son TRUE en RINGS
+planetas[!rigs_vector,] # devuelve unicamente aquellos valores que son FALSO en RINGS
+
+subset(planetas, subset = diameter==1) #para filtrar los datos especifico por algun dato (columnas)
+subset(planetas, subset = diameter<1)
+subset(planetas, subset = diameter>1)
+
+```
+
+ORDENAMIENTO
+
+```{r}
+a <-  c(100, 80, 10)
+order(a) # ordena los valores pero por sus indices.
+b <- a[order(a)] #guardo ya ordenado en otra variable
+b
+ordered(a) # muestra ordenado por levels
+
+position <- order(planetas$diameter) #ordena por el diametro del frame de planetas
+position
+ordered(planetas$diameter) #ordena mostrando los diametros o datos a ordenar
+
+planetas[position,] # muestra ordenadamente por diametro
+planetas[position,"name"] # ordena por diametro y por columna name 
+
+```
+
+Listas
+
+```{r}
+vector <- 1:10
+matrix <- matrix(1:9, ncol=3)
+df <- planetas[1:4,]
+
+lista <- list(vector, matrix, df)
+lista
+
+lista2 <- list(name1=vector, name2=matrix)
+lista2
+
+#crear la lista de nombres
+names(lista) <- c("vector", "matrix", "data Frame") #nombre a las colecciones
+name_vecto
+
+
+```
+
+Seleccionar elementos de la lista 
+```{r}
+lista[[1]] # miro el vector
+lista[[2]] # miro la matriz
+lista[[3]] # miro el data frame
+
+lista[[1]][4] # primero que quiero ver y luego que posición voy a ver 
+lista[[2]][,1] # miro la matriz y luego que quiero ver.
+lista[[2]][1,1]
+
+
+lista[[3]][1:4,] # eligo el data frame y veo de la fila 1 a la 4
+lista[[3]][2:3,1:3]
+lista[[3]][c("rotation", "rings")]
+
+
+
+```
+
+
+
+
