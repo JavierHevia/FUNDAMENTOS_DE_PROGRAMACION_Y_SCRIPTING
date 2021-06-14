@@ -1,5 +1,85 @@
+Condicionales y flujo de control
+```{r}
+3 == (2 + 1)
+"intermediate" != "r"
+TRUE != FALSE
+"Rchitect" != "rchitect"
+toupper("Rchitect") != toupper("rchitect")
+tolower("Rchitect") == tolower("rchitect")
+
+(1+2)>4
+"dog" > "cat"
+TRUE <= FALSE
+
+"raining" <= "table" # lo que hace R, orden alfabetico de las palabras y los compara
+
+TRUE > FALSE
+"@" <= "p"
+"@" <= "?"
+
+```
+Comparar vectores
 
 ```{r}
+linkedin <- c(16,9,13,5,2,17,14) 
+facebook <- c(17,7,5,16,8,13,14)
+
+linkedin > 15 # compara dato por dato de los vectores
+facebook <= 10
+
+linkedin > facebook
+linkedin == facebook
+
+# para matriz
+
+vistas <- matrix(c(linkedin,facebook), nrow=2, byrow= TRUE)
+vistas
+
+vistas == 13
+vistas <= 14
+
+```
+Operadores logitos
+
+```{r}
+
+TRUE & FALSE
+FALSE | TRUE
+5 <= 5 & 2 < 3
+3 < 4 | 7 < 6
+
+
+linkedin <= 10 & facebook == 14
+linkedin <= 10 & facebook == 7
+
+linkedin <= 10 | facebook == 13
+
+
+vistas > 11 & vistas < 14
+vistas >= 11 | vistas < 4
+
+
+```
+Sentencia IF 
+```{r}
+media <- "Linkedin"
+vista_numeros <- 14
+
+if (media == "linkedin") {
+ print("jejje") 
+} else if (media == "2Linkedin"){
+ print("jejje2")
+} else {
+  print("tu")
+}
+
+if (vista_numeros > 15){
+  print("no cumple")
+} else {
+  print("si cumple")
+}
+
+
 
 ```
 
