@@ -1,0 +1,78 @@
+# Estructura de una función
+
+NombreDeLaFunción <- function(Parametro1, parametro2, nparametros){
+  expresión
+}
+
+# Llamada de una función
+
+NombreDeLa_Función(ingreso de valores para parametros)
+
+# Eujemplos de una función
+```{r}
+suma <- function(x,y){
+  x + y
+}
+
+suma(1,2)
+
+mul <- function(x,y){
+  x * y
+}
+
+mul(2,3)
+```
+# Argumentos
+
+Son los parametros que se declarar en una función. Ejemplo:
+
+function(x,y), x es un valor y y es otro valor
+
+La cual se pueden llamar solo dentro de esa función.
+Por referencia o por valor.
+Por ferencias es cuando agarra el nombre de la variable y se la asigna a otro.
+Por valor es cuando agarra el valor en si de la variable y se utiliza.
+
+
+# Family apply
+
+  # lapply()
+  
+# recorre una lista, interando sobre cada elemento de esa lista.
+# aplica la función a cada elemento de la lista.
+# devuelve la lista con los datos ya operados
+
+data <- list(item1 = 1:4, 
+             item2 = rnorm(10), 
+             item3 = rnorm(20, 1), 
+             item4 = rnorm(100, 5))
+data
+             
+lapply (data, mean) # regresa la media de cada elementos de la lista
+
+  #sapply()
+
+# a diferencia de lapply es el valor del retorno.
+# optimiza el resultado de lapply, la cual si tiene 3 respuestas las regresa en una solo vector.
+
+
+beaver_data <- list(beaver1 = beaver1, 
+                    beaver2 = beaver2)
+                    
+sapply(beaver_data, function(x) round(apply(x, 2, mean), 2)) # obtiene la media de cada elementos
+                                                             # de la lista y devuelve en una sola lista.
+                                                             
+
+                    
+  # vapply()
+# utiliza para aplicar una función sobre subconjutnos de un vector.
+# puede dividir un conjunto de datos en grupos a travez de variables por categoría 
+
+head(mtcars)
+
+tapply(mtcars$mpg, mtcars$cyl, mean)
+# obtiene la media de las columnas mpg y cyl agrupadas por cilindros
+
+apply(mtcars, 2, function(x) tapply(x, mtcars$cyl, mean))
+# obtiene las medias de todas las columnas agrupadas por cilindros.
+
