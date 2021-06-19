@@ -1,0 +1,79 @@
+Funciones
+
+```{r}
+funcion1 <-  function(x, y){
+  x + y
+}
+
+funcion1(10, 1)
+
+funcion2 <- function(x, printes="hola"){
+  print(paste(printes, " ", x))
+}
+
+funcion2(10)
+
+```
+Funcion scoping
+
+```{r}
+f1 <- function(p){
+  return(p*9)
+}
+
+f1(5)
+```
+R passes arguments by value
+
+```{r}
+triple <- function(x){
+  return(3*x) 
+}
+a <- 4
+triple(a)
+a
+```
+Otro tipo de parametros
+```{r}
+linkedin
+
+interprete <- function(num_vistas){
+  if (num_vistas > 15){
+    print("es popular")
+    return(num_vistas)
+  }else {
+    print("no es popular")
+    return(0)
+  }
+}
+
+interprete(linkedin[1])
+
+interpreteall <- function(vistas, retur_sum =TRUE){
+  contar <- 0
+  for (v in vistas) {
+    contar <- contar + v
+  }
+  return(contar)
+}
+
+interpreteall(vistas)
+
+```
+
+Carga de paquetes
+
+```{r}
+library(ggplot2)
+
+qplot(mtcars$wt, mtcars$hp)
+
+```
+
+lapply
+
+```{r}
+
+```
+
+
