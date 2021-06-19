@@ -73,6 +73,13 @@ qplot(mtcars$wt, mtcars$hp)
 lapply
 
 ```{r}
+temp <- list(c(3,7,9,6,1), c(6,9,12,13,5), c(4,8,3,-1,-3), c(1,4,7,2,-2), c(5,7,9,4,2), c(-3,5,8,9,4), c(3,6,9,4,1))
+
+lapply(temp, min)
+
+for(t in temp){
+  print(min(t))
+}
 
 ```
 
