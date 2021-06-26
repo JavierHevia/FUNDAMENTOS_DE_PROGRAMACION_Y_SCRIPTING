@@ -82,5 +82,50 @@ for(t in temp){
 }
 
 ```
+# funciones anonimas LAPPLY
+
+```{r}
+triple <- function(x){3*x}
+
+function(x){3*x}
+
+lapply(list(1,2,3), function(x){3*x})
+
+(function(x){3 * x})(9)
+
+pioneers <- c("gauss:1717", "bayes:7777", "pascal:3333", "pearson:2222")
+split <- strsplit(pioneers, split = ":")
+
+split
+
+split_low <- lapply(split, toupper)
+
+split_low
+
+names <- lapply(split_low, function(x){ x[1] })
+
+names
+
+years <- lapply(split_low, function(x){ x[2] })
+
+years
+
+```
+
+Mas de un argumento lapply
+
+```{r}
+multiply <- function(x, factor){ x * factor}
+
+lapply(list(1,2,3), multiply, factor = 3)
+
+select_el <- function(x, index) { x[index] } 
+
+lapply(split_low, select_el, 2)
+
+
+
+```
+# sapply
 
 
