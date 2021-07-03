@@ -20,7 +20,7 @@ gapminder %>%
 # filter y arranging
 # 
 gapminder %>%
-  filter(year == 1957) %>%
+  filter(year == 1957) %>%   #filter(year == 1957, continent == "Asia)
   arrange(lifeExp)
 
 # mutate crea una nueva variable o columna
