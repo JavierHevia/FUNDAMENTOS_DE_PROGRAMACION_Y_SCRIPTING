@@ -1,0 +1,68 @@
+Introducción a Tidyverse
+```{r}
+library(gapminder)
+library(dplyr)
+
+gapminder
+
+# año igual 1957
+gapminder %>%
+  filter(year == 1957)
+
+
+#arranging
+gapminder %>%
+  arrange(lifeExp)
+
+gapminder %>%
+  arrange(desc(lifeExp)) #descendente
+
+# filter y arranging
+# 
+gapminder %>%
+  filter(year == 1957) %>%
+  arrange(lifeExp)
+
+# mutate crea una nueva variable o columna
+
+gapminder %>%
+  mutate(lifeExp = lifeExp * 2 ) %>%
+  arrange(desc(lifeExp))
+
+#Agrega columnas
+gapminder %>%
+  filter(year == 2007) %>%
+  mutate(lifeExpMonts = lifeExp * 12 ) %>%
+  arrange(desc(lifeExpMonts))
+
+```
+
+
+# visualizar con ggplot2
+
+```{r}
+library(ggplot2)
+
+gapminder_1952 <- gapminder %>% filter(year == 1952)
+
+gapminder_1952
+
+# grafica de puntos
+ggplot(gapminder_1952, aes(x=pop, y= gdpPercap)) + 
+  geom_point()
+
+#geom_bar()
+
+
+```
+Log scaling
+```{r}
+ggplot(gapminder_1952, aes(x=pop, y= gdpPercap)) + 
+  geom_point() +
+  scale_x_log10() +
+  scale_y_log10()
+
+
+
+```
+

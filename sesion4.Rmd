@@ -126,6 +126,111 @@ lapply(split_low, select_el, 2)
 
 
 ```
-# sapply
+# sapply simplifica el resultado
+```{r}
+temp <- list(c(3,7,9,6,1), c(6,9,12,13,5), c(4,8,3,-1,-3), c(1,4,7,2,-2), c(5,7,9,4,2), c(-3,5,8,9,4), c(3,6,9,4,1))
+temp
+
+extremes <- function(x){
+  c(min=min(x), max=max(x))
+}
+
+lapply(temp, extremes)
+
+sapply(temp, extremes)
+
+temp2 <- list(1,2,3,4,5)
+temp2
+
+func_temp2 <- function(x){
+  x
+}
+
+lapply(temp2, func_temp2)
+sapply(temp2,func_temp2)
+
+```
+#vapply se mira cuantos queremos devolver
+```{r}
+
+basics <- function(x){
+  c(min=min(x), mean=mean(x), max=max(x))
+}
+
+lapply(temp, basics)
+sapply(temp, basics)
+vapply(temp, basics, numeric(3))
+
+temp3 <- c("Guatemala", "Salvador", "Honduras", "Nicaragua")
+temp3
+
+unique_letter <- function(x){
+  bane <- gsub(" ", "", x)
+  letters <- strsplit(x, split = "")[[1]]
+  unique(letters)
+}
+
+sapply(temp3, unique_letter)
+sapply(temp3, unique_letter)
+vapply(temp3, unique_letter, vchar(7))
+
+
+```
+
+#Useful functions
+
+```{r}
+errors <- c(1.9, -2.6, 4.0, -9.5, -3.4, 7.3)
+
+#suma
+print(sum(errors))
+
+#valor absoluto
+print(sum(abs(errors)))
+
+#aproximar cada elemento.
+print(sum(abs(round(errors))))
+      
+#pedir ayuda para las funciones
+?round
+
+
+linkedin <- list(16, 9, 13, 5, 2, 17, 14)
+facebook <- list(17, 7, 5, 16, 8, 13, 14)
+
+#traducir a un vector, convertir
+
+li_vec <- unlist(linkedin)
+li_vec
+
+fe_vec <- unlist(facebook)
+fe_vec
+
+#unir vectores
+
+social_vector <- append(li_vec, fe_vec)
+social_vector
+
+#ordena decendente
+sort(social_vector, decreasing = TRUE)
+
+```
+#grepl & grep
+Identificar un patron en una cadena de texto
+```{r}
+emails <- c("john.doe@ivyleague.edu", "education@world.gov", "dalai.lama@peace.org",
+            "invalid.edu", "quant@bigdatacollege.edu", "cookie.monster@sesame.tv")
+
+grepl(pattern = "edu", x=emails)
+
+#devuele el indice de quienes si cumplen o no 
+inde <- grep(pattern = "edu", x = emails)
+
+emails[inde]
+
+
+
+```
+
 
 
