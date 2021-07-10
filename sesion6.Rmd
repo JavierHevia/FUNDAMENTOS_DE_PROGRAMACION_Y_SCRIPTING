@@ -1,0 +1,171 @@
+
+
+```{r}
+library(tidyverse)
+library(gapminder)
+
+gapminder
+
+#resumen 
+gapminder %>%
+  summarise(medianLifeExp = median(lifeExp))
+
+gapminder %>%
+  filter(year== 1957) %>%
+  summarise(medianLifeExp = median(lifeExp))
+
+gapminder %>%
+  filter(year== 1957) %>%
+  summarise(medianLifeExp = median(lifeExp), max(gdpPercap))
+
+#group by
+
+gapminder %>%
+  group_by(year) %>%
+  summarise(medianLifeExp = median(lifeExp), maxGdpPercap= max(gdpPercap))
+
+#filter por continente
+gapminder %>%
+  filter(year == 1957) %>%
+  group_by(continent) %>%
+  summarise(medianLifeExp = median(lifeExp), maxGdpPercap= max(gdpPercap))
+
+# dos group_by
+gapminder %>%
+  group_by(continent, year) %>%
+  summarise(medianLifeExp = median(lifeExp), maxGdpPercap= max(gdpPercap))
+
+
+
+by_year <- gapminder %>%
+  group_by(year) %>%
+  summarise(medianLifeExp = median(lifeExp), maxGdpPercap= max(gdpPercap))
+  
+by_year
+
+# puntos 
+ggplot(by_year, aes(x=year, y=medianLifeExp)) + 
+  geom_point()
+
+by_year
+
+by_year_continent <- gapminder %>%
+  group_by(continent, year) %>%
+  summarize(medianLifeExp= median(gdpPercap))
+
+by_year_continent
+
+ggplot(by_year_continent, aes(x= year, y=medianLifeExp, color=continent))+
+  geom_point()
+
+
+```
+# tipos de visualización
+
+# Line plots
+
+```{r}
+# de tal fecha  al ahora.
+# almaceno, agrupo por año y hago la media de gdpPercap
+by_year <- gapminder %>%
+  group_by(year) %>%
+  summarise(medianGdpPercap = median(gdpPercap))
+
+by_year
+
+ggplot(by_year, aes(x=year, y=medianGdpPercap)) +
+  geom_line()
+
+# filtro por año y contienen
+by_year_continent <- gapminder %>%
+  group_by(year, continent) %>%
+  summarise(medianGdpPercap = median(gdpPercap))
+
+by_year_continent
+
+ggplot(by_year_continent, aes(x=year, y=medianGdpPercap, color=continent)) +
+  geom_line()
+
+
+```
+
+
+
+#bar plots
+#variables catergorias vs numericas o continuas
+```{r}
+
+oceania_1952 <- gapminder %>%
+  filter(continent == "Oceania", year == 1952)
+  
+oceania_1952
+
+# colour es el contrno, fill es el cuerpo entero
+
+ggplot(oceania_1952, aes(x= country, y=gdpPercap, fill=country )) +
+  geom_col()
+
+```
+#Histograma
+
+```{r}
+
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952) %>%
+  mutate(pop_by_mil = pop / 1000000 )
+
+gapminder_1952
+
+ggplot(gapminder_1952, aes(x= pop_by_mil)) +
+  geom_histogram(bins = 50)
+
+# bins  cantidad de rangos en que se divide la grafica
+
+
+```
+
+```{r}
+
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+gapminder_1952
+
+ggplot(gapminder_1952, aes(x=pop)) +
+  geom_histogram(bins=50) +
+  scale_x_log10()
+
+
+  
+```
+
+#Blox plots
+
+```{r}
+gapminder_1952 <-  gapminder %>%
+  filter( year == 1952)
+
+gapminder_1952
+
+ggplot(gapminder_1952, aes(x=continent, y=gdpPercap)) +
+  geom_boxplot() +
+  scale_y_log10()
+
+```
+
+#data manipulation with dplyr
+
+```{r}
+counties <- read_csv("counties.csv")
+counties
+```
+
+```{r}
+counties %>%
+  select(state,county, population, men, women) %>%
+  mutate(proportion_men =men/population) %>%
+  filter(population > 10000) %>%
+  arrange(desc(proportion_men))
+```
+
+
