@@ -1,0 +1,53 @@
+# Leer un csv desde R
+se utiliza este de comando: read.csv(file="nombre_archivo", header=TRUE/FALSE, sep="simbolo")
+
+#select()
+Nos permite manejar los datos que ya estan en un data frame.
+Se puede selecionar todos los datos o por nombre o por alguna expresión regular
+o por alguna posición o indice. Tambien se puede seleecionar por columnas.
+
+
+```{r}
+library(tidyverse)
+library(gapminder)
+library(dplyr)
+
+primary <- read.csv(file = './primary_results.csv')
+primary
+
+#1
+# estado de Florida
+
+primary %>%
+  filter(state == "Florida")
+
+#2
+# candidatos Hillary Clinton o Donald Trump
+
+primary %>%
+  filter(candidate == "Hillary Clinton" | candidate == "Donald Trump")
+
+# Partido  Demócrata y el condado Shelby
+
+primary %>%
+  filter(party == "Democrat" & county == "Shelby")
+
+# estado Alabama y cantidad de votos mayor a 15000
+
+primary %>%
+  filter(state == "Alabama" & votes > 15000)
+
+#3
+primary %>%
+  filter(state == "Texas" & county == "Denton") %>%
+  select(party, candidate, votes) %>%
+  arrange(desc(votes))
+
+#4
+primary %>%
+  filter(party == "Republican" & candidate == "Ted Cruz" & state == "Alaska") %>%
+  mutate(vote_count = votes/fraction_votes) %>%
+  arrange(desc(vote_count))
+
+```
+
