@@ -1,0 +1,70 @@
+
+```{r}
+sets <- read_csv('sets.csv')
+themes <- read_csv('themes.csv')
+parts <- read_csv('parts.csv')
+part_categories <- read_csv('part_categories.csv')
+
+```
+```{r}
+counties <- read_csv("counties.csv")
+counties
+
+counties %>%
+  select(state, county,population, professional:production)
+
+# end
+counties %>%
+  select(state, county,population, ends_with("work"))
+
+# start
+counties %>%
+  select(state, county,population, starts_with("income"))
+
+# contain
+counties %>%
+  select(state, county,population, contains("per"))
+
+# rename
+counties %>%
+  count(state) %>%
+  rename(num_counties = n)
+
+counties %>%
+  select(state, county, poverty_rate = poverty)
+
+# transmute
+counties %>%
+  transmute(state, county, population, density= round(population/land_area, 2)) %>%
+  filter(population > 1000000) %>%
+  arrange(density)
+
+counties %>%
+  rename(unemployment_rate = unemployment)
+
+counties %>%
+  select(state, county, contains("poverty"))
+
+counties %>%
+  mutate(fraction_women = women/population)
+
+counties %>%
+  transmute(state,county, employment_rate = employed/population)
+
+
+
+```
+#joining data with dplyr
+```{r}
+
+#view(sets)
+sets
+themes
+```
+
+```{r}
+
+sets %>%
+  inner_join(themes, by = c("theme_id" = "id"))#parametros (dataset, variable de conexión (llave))
+```
+

@@ -3,6 +3,7 @@
 ```{r}
 library(tidyverse)
 library(gapminder)
+library(dplyr)
 
 gapminder
 
@@ -156,16 +157,109 @@ ggplot(gapminder_1952, aes(x=continent, y=gdpPercap)) +
 #data manipulation with dplyr
 
 ```{r}
-counties <- read_csv("counties.csv")
+counties <- read_csv(file ="./counties.csv")
 counties
 ```
 
 ```{r}
 counties %>%
   select(state,county, population, men, women) %>%
-  mutate(proportion_men =men/population) %>%
+  mutate(proportion_men = men/population) %>%
   filter(population > 10000) %>%
   arrange(desc(proportion_men))
 ```
+COUNT
+```{r}
+counties
+counties_selected <- counties %>%
+  select(county, region, state, population, citizens)
 
+counties_selected %>%
+  count(region, name= "datos", sort =  TRUE)
+
+#que variable establecer el conteo
+counties_selected %>%
+  count(state, name= "datos", wt=citizens) %>%
+  arrange(desc(datos))
+
+
+counties_selected <- counties %>%
+  select(county, region, state, population, citizens, walk)
+
+test <- counties_selected %>%
+  mutate(population = population * walk / 100) %>%
+  count(state, wt=population, sort=TRUE)
+
+test %>%
+  select(state, number=n)
+
+
+
+```
+summarizing resumen
+```{r}
+
+counties_selected <- counties %>%
+  select(county,  population, income, unemployment)
+
+counties_selected
+
+
+counties_selected %>%
+  summarise(min_population = min(population), max_unemployment=max(unemployment),
+            average_income = mean(income))
+
+counties_selected <- counties %>%
+  select(state, county, population, land_area)
+
+counties_selected %>%
+  group_by(state) %>%
+  summarize(total_area = sum(land_area), total_population = sum(population))
+
+counties_selected <- counties %>%
+  select(region, state, county, population)
+  
+counties_selected %>%
+  group_by(region, state) %>%
+  summarize(total_pop = sum(population)) %>%
+  #ungroup() %>%
+  summarize(averange_pop = mean(total_pop), median_pop = median(total_pop))
+
+```
+Top_n verb
+Top por agrupamientos de los datos.
+Cuantos datos queremos ver por agrupamiento.
+```{r}
+
+counties_selected <- counties %>%
+  select(region, state,  county, metro,  population, walk)
+
+counties_selected %>%
+  group_by(region) %>%
+  top_n(1, walk)
+
+counties_selected <- counties %>%
+  select(region, state, county, population, income)
+
+# agrupando por region y state y el mayor valor por estos group
+counties_selected %>%
+  group_by(region, state) %>%
+  summarise(average_income = mean(income)) %>%
+  # dato mas alto de todo los datos en si, sin agrupar.
+  # ungroup()%>%
+  top_n(1, average_income)
+
+
+counties_selected <- counties %>%
+  select(state, metro,  population)
+
+counties_selected %>%
+  group_by(state, metro) %>%
+  summarise(total_top = sum(population)) %>%
+  top_n(1, total_top) %>%
+  ungroup() %>%
+  # count(metro)
+  count(metro, wt= total_top)
+
+```
 
