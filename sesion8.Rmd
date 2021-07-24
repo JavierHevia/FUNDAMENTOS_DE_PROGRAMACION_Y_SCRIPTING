@@ -7,10 +7,115 @@ inventories <- read_csv('inventories.csv')
 inventory_parts <- read_csv('inventory_parts.csv')
 
 view(colors)
+view(inventories)
+view(inventory_parts)
 ```
 
 ```{r}
+ # si le pongo "-", le indico que no quiero que se muestra al resultado 
 
+inventory_parts_joined <- inventories %>%
+  inner_join(inventory_parts, by = c("id" = "inventory_id") ) %>%
+  select(-id, -version) %>%
+  arrange(desc(quantity))
+
+batmobile <- inventory_parts_joined %>%
+  filter(set_num == "7784-1") %>%
+  select(-set_num)
+
+batmobile
+
+batwing <- inventory_parts_joined %>%
+  filter(set_num == "70916-1") %>%
+  select(-set_num)
+
+batwing
+
+batmobile %>%
+  inner_join(batwing, by = c("part_num" , "color_id"), suffix = c("_batmobile", "_batwing") )
+
+
+```
+#
+```{r}
+# de cualquier orden, igual hace el filtrado (inner)
+parts %>%
+  inner_join(inventory_parts, by = c("part_num") )
+
+inventory_parts %>%
+  inner_join(parts, by = c("part_num") )
+
+
+```
+# varias tablas
+```{r}
+sets %>%
+  inner_join(inventories, by = "set_num") %>%
+  inner_join(inventory_parts, by = c("id" = "inventory_id") ) %>%
+  inner_join(colors, by = c("color_id" = "id"), suffix = c("_set", "_color") ) %>%
+  count(name_color) %>%
+  arrange(desc(n))
+
+
+
+
+```
+# inner join  Left Join  Right Join
+```{r}
+batmobile %>%
+  inner_join(batwing, c("part_num", "color_id"), suffix = c("_batmobile", "_batwing") )
+  
+
+batmobile %>%
+  left_join(batwing, c("part_num", "color_id"), suffix = c("_batmobile", "_batwing") )
+
+
+```
+
+```{r}
+millennium_falcon <- inventory_parts_joined %>%
+  filter(set_num == "7965-1")
+
+millennium_falcon
+
+
+star_destroyer <- inventory_parts_joined %>%
+  filter(set_num == "75190-1")
+
+star_destroyer
+
+
+millennium_falcon %>%
+  left_join(star_destroyer, by = c("part_num", "color_id"), suffix = c("_falcon", "_star_destroyer"))
+
+
+millennium_falcon_color <- millennium_falcon %>%
+  group_by(color_id) %>%
+  summarise(total_quality = sum(quantity))
+
+millennium_falcon_color
+
+star_destroyer_color <- star_destroyer %>%
+  group_by(color_id) %>%
+  summarise(total_quantity = sum(quantity))
+
+star_destroyer_color
+
+millennium_falcon_color %>%
+  left_join(star_destroyer_color, by = c("color_id") )
+
+```
+
+```{r}
+parts %>%
+  count(part_cat_id) %>%
+  right_join(part_categories, by = c("part_cat_id"="id")) %>%
+  replace_na(list(n = 0)) #list recibe la variable y el valor por el cual se quiere reemplazar N/A
+
+themes
+
+themes %>%
+  inner_join(themes, by = c("id" = "parent_id"), suffix = c("_parent", "_child"))
 ```
 
 
