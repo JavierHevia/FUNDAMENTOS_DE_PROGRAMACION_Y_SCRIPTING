@@ -1,0 +1,16 @@
+#importar
+```{r}
+library(tidyverse)
+
+colors <- read_csv('colors.csv')
+inventories <- read_csv('inventories.csv')
+inventory_parts <- read_csv('inventory_parts.csv')
+
+view(colors)
+```
+
+```{r}
+
+```
+
+

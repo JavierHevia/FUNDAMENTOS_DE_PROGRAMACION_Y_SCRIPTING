@@ -4,7 +4,7 @@ sets <- read_csv('sets.csv')
 themes <- read_csv('themes.csv')
 parts <- read_csv('parts.csv')
 part_categories <- read_csv('part_categories.csv')
-
+library(tidyverse)
 ```
 ```{r}
 counties <- read_csv("counties.csv")
@@ -51,8 +51,6 @@ counties %>%
 counties %>%
   transmute(state,county, employment_rate = employed/population)
 
-
-
 ```
 #joining data with dplyr
 ```{r}
@@ -65,6 +63,23 @@ themes
 ```{r}
 
 sets %>%
-  inner_join(themes, by = c("theme_id" = "id"))#parametros (dataset, variable de conexión (llave))
+  inner_join(themes, by = c("theme_id" = "id")) #parametros (dataset, variable de conexión (llave))
+```
+
+```{r}
+parts
+View(parts)
+View(part_categories)
+
+new_parts <- parts %>%
+  inner_join(part_categories, by = c("part_cat_id" = "id"))
+
+view(new_parts)
+
+new_parts <- parts %>%
+  inner_join(part_categories, by = c("part_cat_id" = "id"), suffix= c("_parts", "_parts_categories")) #variables que se repiten, nombre de las columnas iguales, se cambian de nombre
+
+view(new_parts)
+
 ```
 
