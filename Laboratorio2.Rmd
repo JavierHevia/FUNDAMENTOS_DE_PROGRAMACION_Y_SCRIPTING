@@ -81,8 +81,8 @@ flights_airports <- flights %>%
   inner_join(airports, by = c("dest" = "faa"))
 
 #2.7
-ggplot(flights_airports, aes(x=lon, y=lat, group=delay)) + 
-  geom_point(aes(shape=delay, color=delay, size=delay))
+ggplot(flights_airports, aes(x=lon, y=lat, color=delay)) + 
+  geom_point()
 
 
 #2.8
